@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:test_webrtc/app/modules/home/home_controller.dart';
 
-class SdpcandidateTF extends StatelessWidget {
+class SdpcandidateTF extends GetWidget<HomeController> {
   const SdpcandidateTF({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final sdpController = TextEditingController();
+    
     return Padding(
       padding: EdgeInsets.all(16),
       child: TextField(
-        controller: sdpController,
+        controller: controller.sdpController,
         keyboardType: TextInputType.multiline,
         maxLines: 4,
         maxLength: TextField.noMaxLength,

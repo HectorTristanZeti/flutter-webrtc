@@ -16,7 +16,14 @@ class SdpCandidateButtons extends GetWidget<HomeController> {
             'set remote desc',
           ),
           // style: ,
-        )
+        ),
+        ElevatedButton(
+          onPressed: controller.setCandidate,
+          child: Text(
+            'set candidate',
+          ),
+          // style: ,
+        ),
       ],
     );
   }
