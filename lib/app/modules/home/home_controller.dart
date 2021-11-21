@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart' as webRtc;
+import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:sdp_transform/sdp_transform.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,11 @@ class HomeController extends GetxController {
   final localRender = webRtc.RTCVideoRenderer();
   final remoteRender = webRtc.RTCVideoRenderer();
   final sdpController = TextEditingController();
+  RxBool isShowLocalVideo = false.obs;
+  RxBool isShowRemoteVideo = false.obs;
+
+  String jsonOffer = '';
+  String jsonAnswer = '';
 
   @override
   void onInit() {
@@ -73,6 +79,7 @@ class HomeController extends GetxController {
     pc.onAddStream = (stream) {
       print('add stream: ${stream.id}');
       remoteRender.srcObject = stream;
+      isShowRemoteVideo.value = true;
     };
 
     return pc;
@@ -86,6 +93,8 @@ class HomeController extends GetxController {
   _getUserMedia() async {
     final Map<String, dynamic> mediaConstraints = {
       'audio': false,
+
+      ///TODO; ponerlo en true despues de pruebas
       'video': {
         'facingMode': 'user',
       },
@@ -93,6 +102,7 @@ class HomeController extends GetxController {
     final stream =
         await webRtc.navigator.mediaDevices.getUserMedia(mediaConstraints);
     localRender.srcObject = stream;
+    isShowLocalVideo.value = true;
     return stream;
   }
 
@@ -117,6 +127,8 @@ class HomeController extends GetxController {
         await _peerConnection!.createAnswer({'offerToReceiveVideo': 1});
 
     var session = parse(description.sdp.toString());
+    jsonOffer = json.encode(session);
+    jsonAnswer = json.encode(session);
     print(json.encode(session));
     print(json.encode({
       'sdp': description.sdp.toString(),

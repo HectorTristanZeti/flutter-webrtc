@@ -22,8 +22,12 @@ class VideoRenders extends GetWidget<HomeController> {
                 5,
               ),
               decoration: BoxDecoration(color: Colors.black),
-              child: RTCVideoView(
-                controller.localRender,
+              child: Obx(
+                () => controller.isShowLocalVideo.value
+                    ? RTCVideoView(
+                        controller.localRender,
+                      )
+                    : CircularProgressIndicator(),
               ),
             ),
           ),
@@ -37,8 +41,12 @@ class VideoRenders extends GetWidget<HomeController> {
                 5,
               ),
               decoration: BoxDecoration(color: Colors.black),
-              child: RTCVideoView(
-                controller.remoteRender,
+              child: Obx(
+                () => controller.isShowRemoteVideo.value
+                    ? RTCVideoView(
+                        controller.remoteRender,
+                      )
+                    : Container(),
               ),
             ),
           ),
