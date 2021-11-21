@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_webrtc/app/modules/home/home_controller.dart';
+import 'package:test_webrtc/app/modules/home/widgets/btn_accept_call.dart';
+import 'package:test_webrtc/app/modules/home/widgets/btn_call_friend.dart';
 import 'package:test_webrtc/app/modules/home/widgets/offer_answer_btn.dart';
 import 'package:test_webrtc/app/modules/home/widgets/sdp_candidate_btn.dart';
 import 'package:test_webrtc/app/modules/home/widgets/sdp_candidate_tf.dart';
@@ -18,9 +20,11 @@ class HomePage extends GetView<HomeController> {
           child: Column(
             children: [
               VideoRenders(),
-              OfferAndAnswerButtons(),
-              SdpcandidateTF(),
-              SdpCandidateButtons(),
+              ButtonCallFriend(),
+              ButtonAcceptCall(),
+              // OfferAndAnswerButtons(),
+              // SdpcandidateTF(),
+              // SdpCandidateButtons(),
             ],
           ),
         ),

@@ -1,13 +1,17 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart' as webRtc;
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:sdp_transform/sdp_transform.dart';
 import 'package:get/get.dart';
+import 'package:test_webrtc/app/services/video_call.dart';
 
 class HomeController extends GetxController {
+  final _videoCallService = Get.find<VideoCallService>();
+
   bool _offer = false;
   webRtc.RTCPeerConnection? _peerConnection;
   webRtc.MediaStream? _localStream;
@@ -19,6 +23,7 @@ class HomeController extends GetxController {
 
   String jsonOffer = '';
   String jsonAnswer = '';
+  String candidate = '';
 
   @override
   void onInit() {
@@ -69,6 +74,15 @@ class HomeController extends GetxController {
             },
           ),
         );
+        if (candidate.isEmpty) {
+          candidate = json.encode(
+            {
+              'candidate': e.candidate.toString(),
+              'sdpMid': e.sdpMid.toString(),
+              'sdpMlineIndex': e.sdpMlineIndex,
+            },
+          );
+        }
       }
     };
 
@@ -106,11 +120,19 @@ class HomeController extends GetxController {
     return stream;
   }
 
-  void createOffer() async {
+  Future<void> callingFriend() async {
+    await createOffer();
+    await _videoCallService.addJsonOffer(jsonOffer);
+  }
+
+  Stream<QuerySnapshot<Object?>> readStreamCall() => _videoCallService.readItems();
+
+  Future<void> createOffer() async {
     webRtc.RTCSessionDescription description =
         await _peerConnection!.createOffer({'offerToReceiveVideo': 1});
     var session = parse(description.sdp.toString());
     print(json.encode(session));
+    jsonOffer = json.encode(session);
     _offer = true;
     Clipboard.setData(new ClipboardData(text: json.encode(session)));
 
@@ -127,7 +149,6 @@ class HomeController extends GetxController {
         await _peerConnection!.createAnswer({'offerToReceiveVideo': 1});
 
     var session = parse(description.sdp.toString());
-    jsonOffer = json.encode(session);
     jsonAnswer = json.encode(session);
     print(json.encode(session));
     print(json.encode({

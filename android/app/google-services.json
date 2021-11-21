@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "263854452816",
+    "project_id": "videollamadas-d450b",
+    "storage_bucket": "videollamadas-d450b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263854452816:android:6da0928c2980b1acd46155",
+        "android_client_info": {
+          "package_name": "com.example.test_webrtc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263854452816-caqs6rsg1k12mirioaj49e3nu56bpdbi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKf4rhpoVjIBfjcAToS53BdI6BJ3rehUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263854452816-caqs6rsg1k12mirioaj49e3nu56bpdbi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
