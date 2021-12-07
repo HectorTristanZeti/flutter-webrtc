@@ -8,25 +8,32 @@ class ButtonAcceptCall extends GetWidget<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: controller.readStreamCall(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          Map<String, dynamic> noteInfo =
-              snapshot.data!.docs[0].data()! as Map<String, dynamic>;
-          final callingFriend = noteInfo['CallingBy'].toString();
-          if (callingFriend.isNotEmpty) {
-            return ElevatedButton(
-              onPressed: () {},
-              child: Text('Aceptar Llamada'),
-            );
-          } else {
-            return Container();
-          }
-        } else {
-          return Container();
-        }
-      },
+    return ElevatedButton(
+      onPressed: () => controller.joinRoom(),
+      // onPressed: () => controller.acceptCall(),
+      child: Text('Aceptar Llamada'),
     );
+
+    // StreamBuilder<QuerySnapshot>(
+    //   stream: controller.readStreamCall(),
+    //   builder: (context, snapshot) {
+    //     if (snapshot.hasData) {
+    //       Map<String, dynamic> noteInfo =
+    //           snapshot.data!.docs[0].data()! as Map<String, dynamic>;
+    //       final callingFriend = noteInfo['CallingBy'];
+    //       if (callingFriend != null && callingFriend.isNotEmpty) {
+    //         return ElevatedButton(
+    //           onPressed: () => controller.joinRoom(),
+    //           // onPressed: () => controller.acceptCall(),
+    //           child: Text('Aceptar Llamada'),
+    //         );
+    //       } else {
+    //         return Container();
+    //       }
+    //     } else {
+    //       return Container();
+    //     }
+    //   },
+    // );
   }
 }

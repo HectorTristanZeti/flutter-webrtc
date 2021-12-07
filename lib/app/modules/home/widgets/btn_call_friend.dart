@@ -11,7 +11,7 @@ class ButtonCallFriend extends GetWidget<HomeController> {
       child: Icon(
         Icons.call,
       ),
-      onPressed: () => controller.callingFriend(),
+      onPressed: () => controller.createRoom(),
     );
   }
 }

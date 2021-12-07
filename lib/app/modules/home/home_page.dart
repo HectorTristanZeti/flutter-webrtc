@@ -6,6 +6,7 @@ import 'package:test_webrtc/app/modules/home/widgets/btn_call_friend.dart';
 import 'package:test_webrtc/app/modules/home/widgets/offer_answer_btn.dart';
 import 'package:test_webrtc/app/modules/home/widgets/sdp_candidate_btn.dart';
 import 'package:test_webrtc/app/modules/home/widgets/sdp_candidate_tf.dart';
+import 'package:test_webrtc/app/modules/home/widgets/text_status_call.dart';
 import 'package:test_webrtc/app/modules/home/widgets/video_renders.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -14,7 +15,9 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(controller.userName),
+      ),
       body: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -22,6 +25,7 @@ class HomePage extends GetView<HomeController> {
               VideoRenders(),
               ButtonCallFriend(),
               ButtonAcceptCall(),
+              // TextStatuscall(),
               // OfferAndAnswerButtons(),
               // SdpcandidateTF(),
               // SdpCandidateButtons(),
